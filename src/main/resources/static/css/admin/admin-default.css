@@ -1,0 +1,20 @@
+body {
+    margin: 0;
+    font-family: 'NanumBarunGothic';
+    background-color: #f9f9f9;
+}
+
+section.main {
+    display: flex;
+}
+
+div, h1, h2, h3, h4, a, p, ul, li, input, button, svg {
+    margin: 0;
+    padding: 0;
+}
+
+a {
+    text-decoration: none;
+    color: inherit;
+    cursor: pointer;
+}

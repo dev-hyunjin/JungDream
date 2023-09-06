@@ -1,0 +1,93 @@
+.sidebar {
+    display: flex;
+    height: 100vh;
+}
+
+.sidebar_wrapper {
+    width: 45px;
+    height: 100vh;
+    background-color: #24232f;
+}
+
+.sidebar_wrapper_slider {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-top: 21px;
+}
+
+.sidebar_wrapper_slider svg {
+    width: 24px;
+    height: 24px;
+}
+
+.cls-1 {
+    fill: #ffffff;
+}
+
+.sidebar_main {
+    background-color: #ffffff;
+    color: #24232f;
+    width: 246px;
+    white-space: nowrap;
+    display: flex;
+    flex-direction: column;
+}
+
+.sidebar_logo {
+    width: 100%;
+    border-bottom: 2px solid #24232f;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.sidebar_logo img {
+    height: 61px;
+    margin: 0;
+}
+
+.sidebar_menu {
+    display: flex;
+    margin: 0 14px;
+    height: 60px;
+    font-weight: 300;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.sidebar_menu_name {
+    display: flex;
+    align-items: center;
+}
+
+.sidebar_menu svg {
+    display: block;
+    width: 16px;
+    height: 16px;
+}
+
+.sidebar_menu_name div svg path {
+    fill: #24232f;
+}
+
+.sidebar_menu span {
+    margin-left: 8px;
+}
+
+.sidebar_menu svg polygon {
+    fill: #24232f;
+}
+
+
+.user__profile__input input {
+    padding: 3px 5px;
+}
+
+.volunteer_input {
+    width: 630px;
+}
+
+.button__type_2 {
+    width: 70px;
+}
