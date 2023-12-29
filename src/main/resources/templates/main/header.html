@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <link rel="stylesheet" href="../../static/css/main/header.css">
+</head>
+<body>
+    <div id="fullscreen">
+        <header id="main-header" th:fragment="mainHeader">
+            <div class="header-layout">
+                <div class="login-all-menu">
+                    <a href="/user/join-select" class="sign-up-menu">회원가입</a>
+                    <!-- <a th:if="${session.user == null}" href="/user/join-select" class="sign-up-menu">회원가입</a>
+                    <a th:if="${session.user != null}" href="/users/mypage/mybox" class="login-menu"> -->
+                        <span class="welcome-box">웰컴</span>
+                        <span>정현진</span> 님
+                        <!-- <span th:text="${session.user.getUserName()}"></span> 님 -->
+                    </a>
+                    <div class="slash"></div>
+                    <a href="/user/login" class="login-menu">로그인</a>
+                    <!-- <a th:if="${session.user == null}" href="/user/login" class="login-menu">로그인</a>
+                    <a th:if="${session.user != null}" href="/user/logout" class="login-menu">로그아웃</a> -->
+                    <div class="slash"></div>
+                    <div class="customer-center-layout">
+                        <a href="/notice/list" class="customer-centertext">고객센터
+                        </a>
+                    </div>
+                </div>
+                <div class="second-header-layout">
+                    <div class="second-header-layout1">
+                        <a href="/main/">
+                            <img class="logo" src="/image/logo.png" alt="마켓컬리 로고">
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div id="header" class="menu-fix">
+                <div class="menu">
+                    <div class="header-dropbox">
+                        <div class="category-layout">
+                            <span class="category-img"></span>
+                            <span class="category-text">지역별</span>
+                        </div>
+                        <div class="header-dropbox-div">
+                            <ul class="header-dropbox-ul">
+                                <a href="0">
+                                    <li class="header-dropbox-li">
+                                        <span>전체보기</span>
+                                    </li>
+                                </a>
+                                <a href="1">
+                                    <li class="header-dropbox-li">
+                                        <span>서울특별시</span>
+                                    </li>
+                                </a>
+                                <a href="2">
+                                    <li class="header-dropbox-li">
+                                        <span>경기도</span>
+                                    </li>
+                                </a>
+                                <a href="3">
+                                    <li class="header-dropbox-li">
+                                        <span>강원도</span>
+                                    </li>
+                                </a>
+                                <a href="4">
+                                    <li class="header-dropbox-li">
+                                        <span>충청북도</span>
+                                    </li>
+                                </a>
+                                <a href="5">
+                                    <li class="header-dropbox-li">
+                                        <span>충청남도</span>
+                                    </li>
+                                </a>
+                                <a href="6">
+                                    <li class="header-dropbox-li">
+                                        <span>경상북도</span>
+                                    </li>
+                                </a>
+                                <a href="7">
+                                    <li class="header-dropbox-li">
+                                        <span>경상남도</span>
+                                    </li>
+                                </a>
+                                <a href="8">
+                                    <li class="header-dropbox-li">
+                                        <span>전라북도</span>
+                                    </li>
+                                </a>
+                                <a href="9">
+                                    <li class="header-dropbox-li">
+                                        <span>전라남도</span>
+                                    </li>
+                                </a>
+                                <a href="10">
+                                    <li class="header-dropbox-li">
+                                        <span>제주도</span>
+                                    </li>
+                                </a>
+                            </ul>
+                        </div>
+                    </div>
+                    <ul class="menus-layout">
+                        <li class="menu-layout">
+                            <a href="/storages/register">
+                                <span class="menu-text">창고등록</span>
+                            </a>
+                        </li>
+                        <li class="menu-layout">
+                            <a href="/notice/list">
+                                <span class="menu-text">공지사항</span>
+                            </a>
+                        </li>
+                        <li class="menu-layout">
+                            <a href="/notice/faq">
+                                <span class="menu-text">FAQ</span>
+                            </a>
+                        </li>
+                    </ul>
+                    <div class="saetbyeol-notice-layout">
+                        <a href="/notice/info" class="user-guide">
+                            <div class="saetbyeol-notice-box">
+                                <span class="saetbyeol-notice-text">서비스 이용</span>
+                                안내
+                            </div>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="hidden"></div>
+        </header>
+    </div>
+</body>
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+</html>

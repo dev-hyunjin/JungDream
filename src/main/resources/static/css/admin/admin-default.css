@@ -18,3 +18,120 @@ a {
     color: inherit;
     cursor: pointer;
 }
+
+.button_type {
+    width: 120px;
+    font-weight: 600;
+    text-align: center;
+    line-height: 35px;
+    border: none;
+    border-radius: 5px;
+    transition: all 0.2s;
+    cursor: pointer;
+    box-shadow: 3px 3px 3px rgb(48 52 65 / 10%);
+    background: #fcfcfc;
+}
+
+.select-box {
+    position: relative;
+}
+
+.listbox-selecter {
+    width: 130px;
+    border: none;
+    box-shadow: 3px 3px 3px rgb(48 52 65 / 10%);
+    background-color: #fcfcfc;
+    border-radius: 5px;
+    padding: 12px 13px;
+    font-size: 14px;
+    line-height: 16px;
+    cursor: pointer;
+}
+
+.listbox {
+    position: absolute;
+    width: 130px;
+    list-style: none;
+    box-shadow: 3px 3px 3px rgb(48, 52, 65 / 10%);
+    background-color: #fcfcfc;
+    border: none;
+    box-sizing: border-box;
+    border-radius: 5px;
+    margin-top: 9px;
+    padding: 0;
+}
+
+.listbox li {
+    cursor: pointer;
+    background-color: #fcfcfc;
+}
+
+.list {
+    border: none;
+    background-color: #ffffff;
+    font-family: 'Roboto';
+    font-style: normal;
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    padding: 7px 10px;
+    margin: 5px 7px;
+    cursor: pointer;
+}
+
+.input_type_1 {
+    border: 0;
+    outline: 0;
+    padding: 3px 3px;
+    font-size: 15px;
+}
+
+.enquiry-ok {
+    color: #00ae68;
+    font-family: 'NanumBarunGothic';
+    font-weight: 600;
+}
+
+.enquiry-no {
+    color: #ec3d1e;
+    font-family: 'NanumBarunGothic';
+    font-weight: 600;
+}
+
+.enquiry-wait {
+    color: #0d0d0d;
+    font-family: 'NanumBarunGothic';
+    font-weight: 600;
+}
+
+
+/* paging.css */
+.paging {
+    text-align: center;
+    font-size: 14px;
+    font-family: 'Nono Sans', sans-serif;
+}
+
+.paging #currentPage {
+    color: rgb(3, 3, 3);
+    background-color: #dfdfdf;
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+    border: 1px solid #e0e0e0;
+    font-family: inherit;
+}
+
+.paging a {
+    display: inline-block;
+    padding: 5px 10px;
+    margin-right: 5px;
+    border-radius: 3px;
+    color: black;
+    background-color: #fff;
+    border: 1px solid #e0e0e0;
+    font-family: inherit;
+    transition: background-color 0.2s ease-in-out;
+}
+

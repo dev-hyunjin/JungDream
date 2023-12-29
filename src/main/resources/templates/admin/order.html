@@ -1,12 +1,403 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>주문내역 관리</title>
+    <link rel="stylesheet" href="../../static/css/admin/admin-default.css" />
+    <link rel="stylesheet" href="../../static/css/admin/admin-sidebar.css" />
+    <link rel="stylesheet" href="../../static/css/admin/admin-content.css" />
+    <link rel="stylesheet" href="../../static/css/admin/order.css" />
+    <link rel="stylesheet" href="../../static/css/admin/modal.css" />
 </head>
 <body>
+    <section class="main">
+        <!-- <section th:insert="~{admin/component/sidebar.html :: adminSidebar}"></section> -->
+        <!-- content.css -->
+        <section class="content">
+            <div class="content_header">
+                <span>주문내역 관리</span>
+                <a href="/member/logout"> 로그아웃 </a>
+            </div>
+            <main class="content_main">
+                <div class="table_container">
+                    <!-- status.css -->
+                    <section class="trip-status">
+                        <ul class="status-list">
+                            <li class="status-list-item">
+                                <div class="status-item-wrapper">
+                                    <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                        <rect width="36" height="36" rx="12" fill="#EDFEE0"></rect>
+                                        <path d="M9.75 12.75H24.25C25.3546 12.75 26.25 13.6454 26.25 14.75V24.25C26.25 25.3546 25.3546 26.25 24.25 26.25H11.75C10.6454 26.25 9.75 25.3546 9.75 24.25V12.75Z" fill="#11CA2D"></path>
+                                        <path d="M9.75 12.5C9.75 11.3954 10.6454 10.5 11.75 10.5H16.125L18 12.75H9.75V12.5Z" fill="#11CA2D"></path>
+                                    </svg>
+                                    <div class="status-item-name">요청 승인</div>
+                                </div>
+                                <div class="status-item-count">
+                                    <div th:text="${counts[0]}">1</div>
+                                </div>
+                            </li>
+                            <li class="status-list-item">
+                                <div class="status-item-wrapper">
+                                    <div class="problem-icon-wrapper">
+                                        <div class="problem-icon">
+                                            <div>
+                                                <div>
+                                                    <span>
+                                                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="36" height="36" rx="12" fill="#EDFEE0"></rect>
+                                                            <path d="M9.75 12.75H24.25C25.3546 12.75 26.25 13.6454 26.25 14.75V24.25C26.25 25.3546 25.3546 26.25 24.25 26.25H11.75C10.6454 26.25 9.75 25.3546 9.75 24.25V12.75Z" fill="#11CA2D"></path>
+                                                            <path d="M9.75 12.5C9.75 11.3954 10.6454 10.5 11.75 10.5H16.125L18 12.75H9.75V12.5Z" fill="#11CA2D"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="status-item-name">요청 대기</div>
+                                </div>
+                                <div class="status-item-count">
+                                    <div th:text="${counts[1]}">1</div>
+                                </div>
+                            </li>
+                            <li class="status-list-item">
+                                <div class="status-item-wrapper">
+                                    <div class="problem-icon-wrapper">
+                                        <div class="problem-icon">
+                                            <div>
+                                                <div>
+                                                    <span>
+                                                        <svg width="36" height="36" viewBox="0 0 36 36" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                                            <rect width="36" height="36" rx="12" fill="#EDFEE0"></rect>
+                                                            <path d="M9.75 12.75H24.25C25.3546 12.75 26.25 13.6454 26.25 14.75V24.25C26.25 25.3546 25.3546 26.25 24.25 26.25H11.75C10.6454 26.25 9.75 25.3546 9.75 24.25V12.75Z" fill="#11CA2D"></path>
+                                                            <path d="M9.75 12.5C9.75 11.3954 10.6454 10.5 11.75 10.5H16.125L18 12.75H9.75V12.5Z" fill="#11CA2D"></path>
+                                                        </svg>
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="status-item-name">요청 반려</div>
+                                </div>
+                                <div class="status-item-count">
+                                    <div th:text="${counts[2]}">1</div>
+                                </div>
+                            </li>
     
+                            <div class="clock">
+                                <h2>현재시간</h2>
+                                <h1></h1>
+                            </div>
+                        </ul>
+                    </section>
+                    <div class="table_box">
+                        <div class="table_search_form">
+                            <div>
+                                <button id="delete-button" class="button_type" style="width: 120px">요청내역 삭제</button>
+                                <button id="answer-check" class="button_type" style="width: 120px;">요청 승인</button>
+                                <button id="denied-check" class="button_type" style="width: 120px;">요청 반려</button>
+                            </div>
+                            <!-- default.css -->
+                            <div class="search-box-wrap">
+                                <div class="select-box">
+                                    <button class="listbox-selecter" th:if="${searchType != ''}" th:text="${searchType}">검색조건 선택</button>
+                                    <!-- <button class="listbox-selecter" th:if="${searchType == ''}">검색조건 선택</button> -->
+                                    <ul class="listbox" id="listbox" style="display: none;">
+                                        <li><button class="list">승인/대기</button></li>
+                                        <li><button class="list">이메일</button></li>
+                                    </ul>
+                                    <input type="text" name="searchType" id="searchType" style="display: none"/>
+                                </div>
+                                <div class="search-box">
+                                    <input type="text" th:if="${searchContent != ''}" class="input_type_1 search-input" placeholder="검색" th:value="${searchContent}"/>
+                                    <!-- <input type="text" th:if="${searchContent == ''}" class="input_type_1 search-input" placeholder="검색"/> -->
+                                    <span class="search" style="cursor: pointer">
+                                        <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" enable-background="new 0 0 32 32" id="Glyph" version="1.1" viewBox="0 0 32 32" xml:space="preserve">
+                                            <path d="M27.414,24.586l-5.077-5.077C23.386,17.928,24,16.035,24,14c0-5.514-4.486-10-10-10S4,8.486,4,14  s4.486,10,10,10c2.035,0,3.928-0.614,5.509-1.663l5.077,5.077c0.78,0.781,2.048,0.781,2.828,0  C28.195,26.633,28.195,25.367,27.414,24.586z M7,14c0-3.86,3.14-7,7-7s7,3.14,7,7s-3.14,7-7,7S7,17.86,7,14z" id="XMLID_223_"/>
+                                        </svg>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                        <table class="table">
+                            <tr class="table_header">
+                                <th class="content_check">
+                                    <label class="check-label">
+                                        <input type="checkbox" id="checkAll"/>
+                                    </label>
+                                </th>
+                                <th class="content_id">번호</th>
+                                <th>아이디</th>
+                                <th>이름</th>
+                                <th>게시물 제목</th>
+                                <th>등록날짜</th>
+                                <th>후원요청</th>
+                                <th></th>
+                            </tr>
+                            <tr class="table_content">
+                                <td>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="check"/>
+                                    </label>
+                                </td>
+                                <td class="content_id">1</td>
+                                <td>kmg2331</td>
+                                <td>홍길동</td>
+                                <td>게시물 제목 TEST</td>
+                                <td>2023-01-01</td>
+                                <td class="enquiry-ok">승인</td>
+                                <td>
+                                    <button class="content_detail_btn button_type" style="width: 70px;">
+                                        상세보기
+                                    </button>
+                                    <button class="button_type volunteer_button" style="width: 70px;">
+                                        후원명단
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="table_content">
+                                <td>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="check"/>
+                                    </label>
+                                </td>
+                                <td class="content__id">1</td>
+                                <td>kmg2331</td>
+                                <td>홍길동</td>
+                                <td>게시물 제목 TEST</td>
+                                <td>2023-01-01</td>
+                                <td class="enquiry-no">반려</td>
+                                <td>
+                                    <button class="content_detail_btn button_type" style="width: 70px;">
+                                        상세보기
+                                    </button>
+                                    <button class="button_type volunteer_button" style="width: 70px;">
+                                        후원명단
+                                    </button>
+                                </td>
+                            </tr>
+                            <tr class="table_content">
+                                <td>
+                                    <label class="check-label">
+                                        <input type="checkbox" name="check"/>
+                                    </label>
+                                </td>
+                                <td class="content__id">1</td>
+                                <td>kmg2331</td>
+                                <td>홍길동</td>
+                                <td>게시물 제목 TEST</td>
+                                <td>2023-01-01</td>
+                                <td class="enquiry-wait">대기</td>
+                                <td>
+                                    <button class="content_detail_btn button_type" style="width: 70px;">
+                                        상세보기
+                                    </button>
+                                    <button class="button_type volunteer_button" style="width: 70px;">
+                                        후원명단
+                                    </button>
+                                </td>
+                            </tr>
+<!--                        <tr class="table__content">-->
+<!--                            <td>-->
+<!--                                <label class="check-label">-->
+<!--                                    <input type="checkbox" name="check"/>-->
+<!--                                </label>-->
+<!--                            </td>-->
+<!--                            <td class="content__id">1</td>-->
+<!--                            <td>kmg2331</td>-->
+<!--                            <td>홍길동</td>-->
+<!--                            <td>게시물 제목 TEST</td>-->
+<!--                            <td>2023-01-01</td>-->
+<!--                            &lt;!&ndash; default.css &ndash;&gt;-->
+<!--                            <td class="enquiryNo">대기</td>-->
+<!--                            <td>-->
+<!--                                <button class="content__detail__btn button__type_2 button__color__green">-->
+<!--                                    상세보기-->
+<!--                                </button>-->
+<!--                                <button class="button__type_2 volunteer_button button__color__green">-->
+<!--                                    후원명단-->
+<!--                                </button>-->
+<!--                            </td>-->
+<!--                        </tr> -->
+                        </table>
+                        <!-- default.css > pagenation -->
+                        <!-- <div>
+                            <div class="paging" style="text-align: center">
+                                <a th:if="${pageDTO.prev}" th:href="@{/admin/sponsorship-request} + '?page=' + ${pageDTO.startPage - 1} + '&searchType=' + ${searchType} + '&searchContent=' + ${searchContent}" class="changePage" style="color: black"><code><</code></a>
+                                <th:block th:each="page:${#numbers.sequence(pageDTO.startPage, pageDTO.endPage)}">
+                                    <a th:href="@{/admin/sponsorship-request} + '?page=' + ${page} + '&searchType=' + ${searchType} + '&searchContent=' + ${searchContent}" th:if="${pageDTO.pageNum != page}" class="changePage" style="color: black" th:text="${page}"></a>
+                                    <code id="currentPage" th:if="${pageDTO.pageNum == page}" th:text="${page}">1</code>
+                                </th:block>
+                                <a th:if="${pageDTO.next}" th:href="@{/admin/sponsorship-request} + '?page=' + ${pageDTO.endPage + 1} + '&searchType=' + ${searchType} + '&searchContent=' + ${searchContent}" class="changePage" style="color: black"><code>></code></a>
+                            </div>
+                            <form name="pageForm">
+                                <input type="hidden">
+                                <input type="hidden">
+                            </form>
+                        </div> -->
+
+                        <!-- 퍼블리싱 -->
+                        <div>
+                            <div class="paging" style="text-align: center">
+                                <a href="/admin/volunteer?page=5&amp;searchType=&amp;searchContent=" class="changePage" style="color: black"><code>&lt;</code></a>
+                                <code id="currentPage">1</code>
+                                <a href="/admin/volunteer?page=2&amp;searchType=&amp;searchContent=" class="changePage" style="color: black">2</a>
+                                <a href="/admin/volunteer?page=3&amp;searchType=&amp;searchContent=" class="changePage" style="color: black">3</a>
+                                <a href="/admin/volunteer?page=4&amp;searchType=&amp;searchContent=" class="changePage" style="color: black">4</a>
+                                <a href="/admin/volunteer?page=5&amp;searchType=&amp;searchContent=" class="changePage" style="color: black">5</a>
+                                <a href="/admin/volunteer?page=6&amp;searchType=&amp;searchContent=" class="changePage" style="color: black"><code>&gt;</code></a>
+                            </div>
+                            <form name="pageForm">
+                                <input type="hidden">
+                                <input type="hidden">
+                            </form>
+                        </div>
+
+                    </div>
+                </div>
+            </main>
+        </section>
+        <!-- 모달창 들어가야할 곳 -->
+        <!-- 추후 타임리프로 불러와야 함 -->
+        <div id="confirm-modal" style="display: none;">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h3>삭제 확인</h3>
+                    <button class="close-btn">&times;</button>
+                </div>
+                <div class="modal-body">
+                    <p>정말로 삭제하시겠습니까?</p>
+                </div>
+                <div class="modal-footer">
+                    <button id="confirm-delete" class="btn confirm-btn">확인</button>
+                    <button id="cancel-delete" class="btn cancel-btn">취소</button>
+                </div>
+            </div>
+        </div>
+        <section class="modal-stage" style="display: none">
+           <section class="modal">
+               <div class="modal_header">
+                   <h3 class="modal_title">후원 요청 상세보기</h3>
+                   <a class="modal-close">
+                       <svg xmlns="http://www.w3.org/2000/svg" data-name="Capa 1" id="Capa_1" viewBox="0 0 20 19.84">
+                           <path d="M10.17,10l3.89-3.89a.37.37,0,1,0-.53-.53L9.64,9.43,5.75,5.54a.37.37,0,1,0-.53.53L9.11,10,5.22,13.85a.37.37,0,0,0,0,.53.34.34,0,0,0,.26.11.36.36,0,0,0,.27-.11l3.89-3.89,3.89,3.89a.34.34,0,0,0,.26.11.35.35,0,0,0,.27-.11.37.37,0,0,0,0-.53Z"/>
+                       </svg>
+                   </a>
+               </div>
+               <form action="">
+                   <main class="modal_main">
+                       <div class="modal_profile_top">
+                           <h4>회원정보</h4>
+                           <div class="user_profile">
+                               <h5>아이디</h5>
+                               <div class="user_profile_input">
+                                   <input type="text" name="" value="example1234" readonly="true"/>
+                               </div>
+                           </div>
+                           <div class="user_profile">
+                               <h5>이메일</h5>
+                               <div class="user_profile_input">
+                                   <input type="text" name="" value="example@gmail.com" readonly="true"/>
+                               </div>
+                           </div>
+                           <div class="user_profile">
+                               <h5>전화번호</h5>
+                               <div class="user_profile_input">
+                                   <input type="text" name="" value="01012341234" readonly="true"/>
+                               </div>
+                           </div>
+                       </div>
+                       <div class="modal_profile_bottom">
+                           <h4>테스트 후원요청 제목</h4>
+                           <div class="notice__content">
+                               <textarea></textarea>
+                           </div>
+                       </div>
+    
+                       <div class="user_profile_button">
+                           <button id="completeBtn" class="button__type_2 button__color__green">
+                               닫기
+                           </button>
+                       </div>
+                   </main>
+               </form>
+           </section>
+        </section>
+        <section class="volunteer-modal" style="display: none">
+            <section class="modal" style="padding: 50px">
+                <div class="modal_header">
+                    <h3 class="modal_title">후원 신청 명단</h3>
+                    <a class="modal-close">
+                        <svg xmlns="http://www.w3.org/2000/svg" data-name="Capa 1" id="Capa_1" viewBox="0 0 20 19.84">
+                            <path d="M10.17,10l3.89-3.89a.37.37,0,1,0-.53-.53L9.64,9.43,5.75,5.54a.37.37,0,1,0-.53.53L9.11,10,5.22,13.85a.37.37,0,0,0,0,.53.34.34,0,0,0,.26.11.36.36,0,0,0,.27-.11l3.89-3.89,3.89,3.89a.34.34,0,0,0,.26.11.35.35,0,0,0,.27-.11.37.37,0,0,0,0-.53Z"/>
+                        </svg>
+                    </a>
+                </div>
+                <form class="storage_form" action="">
+                    <main class="modal_main">
+                        <div class="modal_profile_top">
+                            <h4>신청자</h4>
+                            <div class="user_profile volunteer_profile">
+                                <h5>회원정보</h5>
+                                <div class="user_profile_input volunteer_input">
+                                    <input type="text" name="" value="회원번호" readonly="true"/>
+                                    <input type="text" name="" value="이름" readonly="true"/>
+                                    <input type="text" name="" value="이메일" readonly="true"/>
+                                    <input type="text" name="" value="후원 금액" readonly="true"/>
+                                </div>
+                            </div>
+                            <div class="append-div"></div>
+                            <div class="user__profile">
+                                <h5></h5>
+                                <div class="user__profile__input volunteer_input">
+                                    <input type="text" name="" value="1" readonly="true"/>
+                                    <!-- <input type="text" name="" value="홍길동" readonly="true"/> -->
+                                    <input type="text" name="" value="01011112222" readonly="true"/>
+                                    <input type="text" name="" value="kmg2331" readonly="true"/>
+                               </div>
+                            </div>
+    <!--                        <div class="user__profile">-->
+    <!--                            <h5></h5>-->
+    <!--                            <div class="user__profile__input volunteer_input">-->
+    <!--                                <input type="text" name="" value="1" readonly="true"/>-->
+    <!--                                <input type="text" name="" value="홍길동" readonly="true"/>-->
+    <!--                                <input type="text" name="" value="01011112222" readonly="true"/>-->
+    <!--                                <input type="text" name="" value="kmg2331" readonly="true"/>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                        <div class="user__profile">-->
+    <!--                            <h5></h5>-->
+    <!--                            <div class="user__profile__input volunteer_input">-->
+    <!--                                <input type="text" name="" value="1" readonly="true"/>-->
+    <!--                                <input type="text" name="" value="홍길동" readonly="true"/>-->
+    <!--                                <input type="text" name="" value="01011112222" readonly="true"/>-->
+    <!--                                <input type="text" name="" value="kmg2331" readonly="true"/>-->
+    <!--                            </div>-->
+    <!--                        </div>-->
+    <!--                    </div>-->
+    <!--                    <div class="user__profile__button" style="margin-top: 20px;">-->
+                            <!--                        <button id="completeBtn" class="button__type_2 button__color__green">-->
+                            <!--                            작성완료-->
+                            <!--                        </button>-->
+                            <!--                    </div>-->
+                        </div>
+                        <div>
+                            <div class="paging-modal" style="margin-top: 28px; margin-bottom: -57px; text-align: center;">
+                                <!--                            <a class="changePage" style="color: black"><code><</code></a>-->
+                                <!--                            <code id="currentPage">1</code>-->
+                                <!--                            <a class="changePage" style="color: black"><code>2</code></a>-->
+                                <!--                            <a class="changePage" style="color: black"><code>></code></a>-->
+                            </div>
+                            <!--                        <form name="pageForm">-->
+                            <!--                            <input type="hidden">-->
+                            <!--                            <input type="hidden">-->
+                            <!--                        </form>-->
+                        </div>
+                    </main>
+                </form>
+            </section>
+        </section>
+    </section>
 </body>
 </html>

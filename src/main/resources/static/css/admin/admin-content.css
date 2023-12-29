@@ -1,0 +1,170 @@
+section.content {
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+}
+
+div.content_header {
+    display: flex;
+    align-items: center;
+    width: 70vw;
+    margin: 0 auto;
+    justify-content: space-between;
+    background-color: #ffffff;
+    color: #24232f;
+    border-bottom: 2px solid #24232f;
+}
+
+section.content div:nth-child(1) {
+    background-color: #ffffff;
+}
+
+div.content_header span, div.content_header a {
+    padding: 21px 8px;
+}
+
+main.content_main {
+    margin: 0 24px;
+}
+
+div.table_container {
+    margin: 24px auto;
+    width: 70vw;
+    font-family: 'NanumBareunGothicLight';
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+}
+
+
+
+
+section.trip-status {
+    background-color: #ffffff;
+    min-width: 948px;
+    box-shadow: 0 10px 10px rgb(48, 52, 65 / 10%);
+}
+
+ul.status-list {
+    margin: 16px;
+    border-radius: 12px;
+    display: flex;
+    min-width: 900px;
+    gap: 16px;
+}
+
+li.status-list-item {
+    display: flex;
+    flex-direction: column;
+    border-radius: 10px;
+    height: 120px;
+    padding: 20px;
+    box-shadow: 4px 4px 4px rgb(48, 52, 65 / 4%);
+    width: 17%;
+    background-color: #ffffff;
+    color: #303441;
+}
+
+div.status-item-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+div.status-item-name {
+    display: flex;
+    font-weight: 600;
+    font-size: 17px;
+    flex: 1;
+    margin-left: 21px;
+}
+
+div.status-item-count {
+    margin-top: 5px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #303441;
+    font-size: 42px;
+    font-weight: 600;
+    cursor: default;
+    flex: 1;
+}
+
+.clock {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    flex: 1;
+}
+
+.clock h1 {
+    font-size: 50px;
+}
+
+div.table_box {
+    padding: 24px 24px;
+    min-width: 900px;
+    background-color: white;
+    border-radius: 5px;
+    box-shadow: 0 10px 10px rgb(48, 52, 65 / 10%);
+}
+
+div.table_box .table_search_form {
+    margin-bottom: 30px;
+    display: flex;
+    justify-content: space-between;
+}
+
+.search-box-wrap {
+    display: flex;
+    gap: 30px;
+}
+
+.search-box {
+    display: flex;
+    border-bottom: 2px solid gray;
+    align-items: center;
+}
+
+.search-box svg {
+    width: 21px;
+    display: flex;
+    justify-content: center;
+}
+
+table.table {
+    border-collapse: collapse;
+    width: 100%;
+}
+
+.table th, .table td {
+    height: 60px;
+}
+
+.table_header .content_check {
+    width: 5%;
+}
+
+label.check-label {
+    display: inline-flex;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    justify-content: center;
+    align-items: center;
+}
+
+input[type='checkbox'] {
+    cursor: pointer;
+}
+
+.table_header .content_id {
+    width: 10%;
+}
+
+.table tr:not(:first-child) {
+    font-size: 14px;
+}
