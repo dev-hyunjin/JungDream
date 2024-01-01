@@ -1,0 +1,17 @@
+html, button, input, select, textarea {
+    font-family: "Noto Sans", "malgun gothic", AppleGothic, dotum, sans-serif;
+}
+
+img {
+    width: 75px;
+    height: 75px;
+}
+
+.container {
+    width: 1150px;
+    margin: 0 auto;
+}
+
+.content {
+    display: flex;
+}
