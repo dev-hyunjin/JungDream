@@ -15,3 +15,28 @@ img {
 .content {
     display: flex;
 }
+
+.product-count {
+    width: 100px;
+    display: flex;
+    justify-content: space-evenly;
+    color: #303441;
+    border: 1px solid #80808066;
+}
+
+.minus, .plus {
+    background-color: transparent;
+    border: 0;
+    cursor: pointer;
+    height: 30px;
+}
+
+.product-count-text {
+    font-size: 14px;
+    color: #303441;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 28px;
+    line-height: 20px
+}
